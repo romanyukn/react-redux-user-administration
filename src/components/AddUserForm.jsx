@@ -67,29 +67,31 @@ function AddUserForm() {
         return (cleanedForm);
     }
 
-    function formObject() {
-        // maybe in this separate function I should make the object which might go to the payload of the action in handleSubmit
-        // return ({
-        //     firstName: "value of the field with the name "firstName" ",
-        //     lastName: ""value of the field with the name "lastName" ",
-        //     email: ""value of the field with the name "Email Address" ",
-        //     password: ""value of the field with the name "Password" "
-        // })
+    function createObject() {
+        return ({
+            firstName: "value of the field with the name firstName",
+            lastName: "value of the field with the name lastName",
+            email: "value of the field with the name Email Address",
+            password: "value of the field with the name Password"
+        })
     }
 
     function sendToStore() {
+        const formObject = createObject();
         dispatch({
             type: "userAdded",
             payload: {
-                // here should be an object formed from the "fields" values which are in local state of this form
-                //  to send it to the reducer and then it will become a part of the store
-                
+                firstName: "value of the field with the name firstName",
+                lastName: "value of the field with the name lastName",
+                email: "value of the field with the name Email Address",
+                password: "value of the field with the name Password"
             }
         })
     }
 
     function handleSubmit(e) {
         e.preventDefault();
+        sendToStore();
         const filledForm = validate(fields);
         const isAllFieldsValid = filledForm.every((el) => el.isValid === true);
         if (isAllFieldsValid) {
@@ -98,12 +100,13 @@ function AddUserForm() {
         } else {
             setFields(filledForm);
         }
+        
     }
 
     return (
         <div className="container">
             <div className="row">
-                <div className="col-6 p-5">
+                <div className="col-3 p-5">
                 </div>
                 <div className="col-6 p-5">
                     <div className="frame">  
@@ -126,6 +129,8 @@ function AddUserForm() {
                             </button>
                         </form>
                     </div>    
+                </div>
+                <div className="col-3 p-5">
                 </div> 
             </div>
         </div>
