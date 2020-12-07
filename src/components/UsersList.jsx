@@ -5,6 +5,7 @@ import UserListItem from './UserListItem';
 function UsersList() {
     const store = useStore();
     const state = store.getState();
+    console.log(state);
     return (
         <table className="table">
             <thead>
