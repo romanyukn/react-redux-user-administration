@@ -1,24 +1,15 @@
 import React from 'react';
-import store from '..store/';
+import { useStore } from 'react-redux'
 import UserListItem from './UserListItem';
 
-store.dispatch({
-    type: "userAdded",
-    payload: {
-        firstName: "Harry",
-        lastName: "Potter",
-        email: "harry@gmail.com",
-        password: "1234"
-    }
-})
-console.log(store.getState());
-
 function UsersList() {
+    const store = useStore();
+    const state = store.getState();
     return (
-        <table class="table">
+        <table className="table">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col">№</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
