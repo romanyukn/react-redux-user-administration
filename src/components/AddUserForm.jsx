@@ -7,10 +7,10 @@ function creatField(name) {
  }
  
  const formState = [
-    creatField("First Name"),
-    creatField("Last Name"),
-    creatField("Email Address"),
-    creatField("Password")
+    creatField("firstName"),
+    creatField("lastName"),
+    creatField("email"),
+    creatField("password")
 ]
 
 function AddUserForm() {
@@ -68,30 +68,24 @@ function AddUserForm() {
     }
 
     function createObject() {
-        return ({
-            firstName: "value of the field with the name firstName",
-            lastName: "value of the field with the name lastName",
-            email: "value of the field with the name Email Address",
-            password: "value of the field with the name Password"
-        })
+        const result = fields.reduce((accu, el) => ({
+            ...accu,
+            [el.name]: el.value
+        }), {});
+        return result;
     }
+    createObject();
 
     function sendToStore() {
         const formObject = createObject();
         dispatch({
             type: "userAdded",
-            payload: {
-                firstName: "value of the field with the name firstName",
-                lastName: "value of the field with the name lastName",
-                email: "value of the field with the name Email Address",
-                password: "value of the field with the name Password"
-            }
+            payload: formObject
         })
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        sendToStore();
         const filledForm = validate(fields);
         const isAllFieldsValid = filledForm.every((el) => el.isValid === true);
         if (isAllFieldsValid) {
@@ -100,7 +94,7 @@ function AddUserForm() {
         } else {
             setFields(filledForm);
         }
-        
+        sendToStore();
     }
 
     return (
