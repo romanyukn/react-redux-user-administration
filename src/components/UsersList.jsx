@@ -1,19 +1,30 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import UserListItem from './UserListItem';
 
 function UsersList() {
     const users = useSelector(state => state);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     function goToAddUser() {
         history.push("/add-user");
     }
+
+    function handleDelete(id) {
+        console.log(id);
+        dispatch({
+            type: "userRemoved",
+            payload: {
+                id
+            }
+        })
+    }
     
     return (
         <div className="container">
-            <button type="button" class="btn btn-primary mb-3 mt-3" onClick={goToAddUser}>Add new user</button>
+            <button type="button" className="btn btn-primary mb-3 mt-3" onClick={goToAddUser}>Add new user</button>
             <table className="table">
                 <thead>
                     <tr>
@@ -22,6 +33,9 @@ function UsersList() {
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +47,7 @@ function UsersList() {
                             lastName={el.lastName}
                             email={el.email}
                             password={el.password}
+                            onDelete={handleDelete}
                         />
                     })}
                 </tbody>
