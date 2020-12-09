@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import AddUserFormField from './AddUserFormField';
 
 function creatField(name) {
@@ -16,6 +17,7 @@ function creatField(name) {
 function AddUserForm() {
     const [fields, setFields] = useState(formState);
     const dispatch = useDispatch();
+    const history = useHistory();
     const emailCheck = /^\S+@\S+\.\S+$/
 
     function onInputChange(eachField) {
@@ -95,6 +97,7 @@ function AddUserForm() {
             setFields(filledForm);
         }
         sendToStore();
+        history.push("/users");
     }
 
     return (

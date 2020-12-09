@@ -1,11 +1,11 @@
 import React from 'react';
-import { useStore } from 'react-redux'
+import { useSelector } from 'react-redux';
 import UserListItem from './UserListItem';
 
 function UsersList() {
-    const store = useStore();
-    const state = store.getState();
-    console.log(state);
+    const users = useSelector(state => state);
+    console.log(users);
+    
     return (
         <table className="table">
             <thead>
@@ -18,7 +18,7 @@ function UsersList() {
                 </tr>
             </thead>
             <tbody>
-                {state.map((el) => {
+                {users.map((el) => {
                     <UserListItem 
                         key={el.id}
                         id={el.id}
