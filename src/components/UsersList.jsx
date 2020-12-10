@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import UserListItem from './UserListItem';
+import UserItem from './UserItem';
 
 function UsersList() {
     const users = useSelector(state => state);
@@ -13,7 +14,6 @@ function UsersList() {
     }
 
     function handleDelete(id) {
-        console.log(id);
         dispatch({
             type: "userRemoved",
             payload: {
@@ -21,6 +21,12 @@ function UsersList() {
             }
         })
     }
+
+   function handleViewDetails(id) {
+        return(
+            history.push(`/users/${id}`)
+        )
+   }
     
     return (
         <div className="container">
@@ -48,6 +54,7 @@ function UsersList() {
                             email={el.email}
                             password={el.password}
                             onDelete={handleDelete}
+                            onViewDetails={handleViewDetails}
                         />
                     })}
                 </tbody>

@@ -1,8 +1,13 @@
 import React from 'react';
 
-function UserItem() {
+function UserItem(props) {
+    const userId = props.match.params.id;
     return (
-        <h1>This is a UserItem</h1>
+        <div className="container mt-5">
+            <ul class="list-group">
+                <li class="list-group-item">{userId}</li>
+            </ul>
+        </div>
     )
 }
 
