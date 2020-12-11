@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import UserListItem from './UserListItem';
-import UserItem from './UserItem';
+import DeleteConfirmation from './deleteConfirmation';
 
 function UsersList() {
     const users = useSelector(state => state);
     const history = useHistory();
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
+    const [idToDelete, setIdToDelete] = useState();
 
     function goToAddUser() {
         history.push("/add-user");
+    }
+
+    function onDelete(id) {
+        setShowModal(true);
+        setIdToDelete(id);
     }
 
     function handleDelete(id) {
@@ -20,6 +27,11 @@ function UsersList() {
                 id
             }
         })
+        hideModal();
+    }
+
+    function hideModal() {
+        setShowModal(false);
     }
 
    function handleViewDetails(id) {
@@ -53,12 +65,13 @@ function UsersList() {
                             lastName={el.lastName}
                             email={el.email}
                             password={el.password}
-                            onDelete={handleDelete}
+                            onDelete={onDelete}
                             onViewDetails={handleViewDetails}
                         />
                     })}
                 </tbody>
             </table>
+            <DeleteConfirmation show={showModal} hide={hideModal} id={idToDelete} onDelete={handleDelete}/>
         </div>
     )
 }
