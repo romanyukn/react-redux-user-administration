@@ -14,7 +14,7 @@ function UserItem(props) {
        ,[]);
 
     return (
-        <AddUserForm fields={formFields}/>
+        <AddUserForm fields={formFields} mode="Edit"/>
     )
 }
 

@@ -14,6 +14,12 @@ function creatField(name) {
     creatField("password")
 ]
 
+const FormMode = {
+    ADD: 'Add',
+    EDIT: 'Edit',
+    VIEW: 'View'
+};
+
 function AddUserForm(props) {
     const [fields, setFields] = useState(props.fields || formState);
     const dispatch = useDispatch();
@@ -99,6 +105,9 @@ function AddUserForm(props) {
         sendToStore();
         history.push("/users");
     }
+     function handleClose() {
+        history.push("/users");
+     }
 
     return (
         <div className="container">
@@ -121,9 +130,14 @@ function AddUserForm(props) {
                                     />}
                                 )
                             }
-                            <button className="btn btn-success btn-lg btn-block">
+                            {props.mode === FormMode.EDIT && 
+                            <div>
+                                <button type="button" class="btn btn-primary mr-3">Edit</button>
+                                <button type="button" class="btn btn-secondary" onClick={handleClose}>Cancel</button>
+                            </div>}
+                            {props.mode === FormMode.ADD && <button className="btn btn-success btn-lg btn-block">
                                 ADD A NEW USER
-                            </button>
+                            </button>}
                         </form>
                     </div>    
                 </div>

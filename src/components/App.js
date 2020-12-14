@@ -13,7 +13,7 @@ class App extends Component {
             <Switch>
               <Route path="/users/:id" component={UserItem} />
               <Route path="/users" component={UsersList} />
-              <Route path="/add-user" component={AddUserForm} />
+              <Route path="/add-user" component={() => <AddUserForm mode="Add"/>} />
               <Route path="/not-found" component={NotFound} />
               <Route path="/" exact component={UsersList} />
               <Redirect to="/not-found" />
