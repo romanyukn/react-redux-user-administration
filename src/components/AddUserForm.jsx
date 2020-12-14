@@ -14,8 +14,8 @@ function creatField(name) {
     creatField("password")
 ]
 
-function AddUserForm() {
-    const [fields, setFields] = useState(formState);
+function AddUserForm(props) {
+    const [fields, setFields] = useState(props.fields || formState);
     const dispatch = useDispatch();
     const history = useHistory();
     const emailCheck = /^\S+@\S+\.\S+$/
