@@ -1,7 +1,7 @@
 import React from 'react';
 
 function AddUserFormField(props) {
-    const {name, value, isValid, className, error, onChange, onFocus} = props;
+    const {name, value, isValid, className, error, onChange, onFocus, changeMode} = props;
     return(
         <div className="form-group">
             <input
@@ -14,6 +14,7 @@ function AddUserFormField(props) {
                 placeholder={name}
                 onChange={(e) => onChange({...props, value: e.target.value})}
                 onFocus={() => onFocus(name)}
+                disabled={changeMode}
             />
             {!isValid && <div className="invalid-feedback">{error}</div>}
             

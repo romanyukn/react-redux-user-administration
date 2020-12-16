@@ -127,13 +127,19 @@ function AddUserForm(props) {
                                     className={el.className}
                                     onChange={onInputChange}
                                     onFocus={handleFocus}
+                                    changeMode={props.input}
                                     />}
                                 )
                             }
+                            {props.mode === FormMode.VIEW && 
+                            <div>
+                                <button type="button" className="btn btn-primary mr-3" onClick={props.changeMode}>Edit</button>
+                                <button type="button" className="btn btn-secondary" onClick={handleClose}>Cancel</button>
+                            </div>}
                             {props.mode === FormMode.EDIT && 
                             <div>
-                                <button type="button" class="btn btn-primary mr-3">Edit</button>
-                                <button type="button" class="btn btn-secondary" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn btn-success mr-3">Save</button>
+                                <button type="button" className="btn btn-secondary" onClick={handleClose}>Cancel</button>
                             </div>}
                             {props.mode === FormMode.ADD && <button className="btn btn-success btn-lg btn-block">
                                 ADD A NEW USER
