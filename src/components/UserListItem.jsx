@@ -10,7 +10,6 @@ function UserListItem(props) {
             <td>{lastName}</td>
             <td>{email}</td>
             <td type="password">{password}</td>
-            <button type="button" className="btn btn-success mt-2">Edit</button>
             <button type="button" className="btn btn-primary mr-2 ml-2 mt-2" onClick={() => onViewDetails(id)}>Details</button>
             <button type="button" className="btn btn-danger mt-2" onClick={() => onDelete(id)}>Delete</button>
         </tr>

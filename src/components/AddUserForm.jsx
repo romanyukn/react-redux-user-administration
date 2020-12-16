@@ -92,6 +92,14 @@ function AddUserForm(props) {
         })
     }
 
+    function editInStore() {
+        const formObject = createObject();
+        dispatch({
+            type: "userEdited",
+            payload: formObject
+        })
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         const filledForm = validate(fields);
@@ -102,9 +110,11 @@ function AddUserForm(props) {
         } else {
             setFields(filledForm);
         }
-        sendToStore();
+        {props.mode === FormMode.EDIT && editInStore()}
+        {props.mode === FormMode.ADD && sendToStore()}
         history.push("/users");
     }
+
      function handleClose() {
         history.push("/users");
      }
@@ -138,7 +148,7 @@ function AddUserForm(props) {
                             </div>}
                             {props.mode === FormMode.EDIT && 
                             <div>
-                                <button type="button" className="btn btn-success mr-3">Save</button>
+                                <button type="button" className="btn btn-success mr-3" onClick={handleSubmit}>Save</button>
                                 <button type="button" className="btn btn-secondary" onClick={handleClose}>Cancel</button>
                             </div>}
                             {props.mode === FormMode.ADD && <button className="btn btn-success btn-lg btn-block">

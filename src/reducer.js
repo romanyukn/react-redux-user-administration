@@ -16,6 +16,10 @@ export default function reducer (state = [], action) {
             ];
         case "userRemoved":
             return state.filter((user) => user.id !== action.payload.id);
+        case "userEdited":
+            const index = state.findIndex((user) => user.id === action.payload.id);
+            state[index] = action.payload;
+            return state;
         default:
             return state;
     }
