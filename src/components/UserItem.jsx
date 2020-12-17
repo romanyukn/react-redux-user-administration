@@ -21,7 +21,7 @@ function UserItem(props) {
     }
 
     return (
-        <AddUserForm fields={formFields} mode={mode} changeMode={handleChangeMode} input={disabled}/>
+        <AddUserForm fields={formFields} mode={mode} changeMode={handleChangeMode} input={disabled} userId={userId}/>
     )
 }
 
