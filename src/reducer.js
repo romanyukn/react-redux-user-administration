@@ -10,11 +10,16 @@ export default function reducer (state = [], action) {
                     firstName: action.payload.firstName,
                     lastName: action.payload.lastName,
                     email: action.payload.email,
-                    password: action.payload.password
+                    password: action.payload.password,
+                    isDelete: action.payload.isDelete
                 }
             ];
         case "userRemoved":
             return state.filter((user) => user.id !== action.payload.id);
+        case "userEdited":
+            const index = state.findIndex((user) => user.id === action.payload.id);
+            state[index] = action.payload;
+            return state;
         default:
             return state;
     }
