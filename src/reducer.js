@@ -1,3 +1,4 @@
+import { UserFormMode } from './components/UserForm';
 let lastId = 0;
 
 export default function reducer (state = [], action) {
@@ -16,7 +17,7 @@ export default function reducer (state = [], action) {
             ];
         case "userRemoved":
             return state.filter((user) => user.id !== action.payload.id);
-        case "userEdited":
+        case UserFormMode.EDIT:
             const index = state.findIndex((user) => user.id === action.payload.id);
             state[index] = action.payload;
             return state;

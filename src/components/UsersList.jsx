@@ -12,7 +12,7 @@ function UsersList() {
     const [idToDelete, setIdToDelete] = useState();
 
     function goToAddUser() {
-        history.push("/add-user");
+        history.push("/user/add");
     }
 
     function onDelete(id) {

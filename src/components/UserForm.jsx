@@ -14,17 +14,30 @@ function creatField(name) {
     creatField("password")
 ]
 
-const FormMode = {
+export const UserFormMode = {
     ADD: 'Add',
     EDIT: 'Edit',
     VIEW: 'View'
 };
 
-function AddUserForm(props) {
-    const [fields, setFields] = useState(props.fields || formState);
+function UserForm(props) {
+    const [fields, setFields] = useState(userToFields(props.user) || formState);
     const dispatch = useDispatch();
     const history = useHistory();
     const emailCheck = /^\S+@\S+\.\S+$/
+
+    function userToFields(user) {
+        if(user) {
+            const formFields = Object.keys(user).reduce((accu, fieldName) => 
+                {if(fieldName === "id" || fieldName === "isDelete") {
+                    return accu;
+                } else {
+                    return [...accu, {name: fieldName, value: user[fieldName], isValid: true, className: "form-control", error: ""}]
+                }}
+            ,[]);
+            return formFields;
+        }  
+    }
 
     function onInputChange(eachField) {
         const dataFields = fields.map((el) => {
@@ -93,14 +106,6 @@ function AddUserForm(props) {
         })
     }
 
-    function editInStore() {
-        const formObject = createObject();
-        dispatch({
-            type: "userEdited",
-            payload: formObject
-        })
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
         const filledForm = validate(fields);
@@ -111,14 +116,11 @@ function AddUserForm(props) {
         } else {
             setFields(filledForm);
         }
-        {props.mode === FormMode.EDIT && editInStore()}
-        {props.mode === FormMode.ADD && sendToStore()}
+        const formObject = createObject();
+        props.mode === UserFormMode.EDIT && props.onSubmit(formObject, UserFormMode.EDIT);
+        props.mode === UserFormMode.ADD && sendToStore();
         history.push("/users");
     }
-
-     function handleClose() {
-        history.push("/users");
-     }
 
     return (
         <div className="container">
@@ -138,21 +140,21 @@ function AddUserForm(props) {
                                     className={el.className}
                                     onChange={onInputChange}
                                     onFocus={handleFocus}
-                                    changeMode={props.input}
+                                    changeMode={props.mode === UserFormMode.VIEW}
                                     />}
                                 )
                             }
-                            {props.mode === FormMode.VIEW && 
+                            {props.mode === UserFormMode.VIEW && 
                             <div>
-                                <button type="button" className="btn btn-primary mr-3" onClick={props.changeMode}>Edit</button>
-                                <button type="button" className="btn btn-secondary" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn btn-primary mr-3" onClick={props.onModeChange}>Edit</button>
+                                <button type="button" className="btn btn-secondary" onClick={props.onCancel}>Cancel</button>
                             </div>}
-                            {props.mode === FormMode.EDIT && 
+                            {props.mode === UserFormMode.EDIT && 
                             <div>
                                 <button type="button" className="btn btn-success mr-3" onClick={handleSubmit}>Save</button>
-                                <button type="button" className="btn btn-secondary" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn btn-secondary" onClick={props.onCancel}>Cancel</button>
                             </div>}
-                            {props.mode === FormMode.ADD && <button className="btn btn-success btn-lg btn-block">
+                            {props.mode === UserFormMode.ADD && <button className="btn btn-success btn-lg btn-block">
                                 ADD A NEW USER
                             </button>}
                         </form>
@@ -165,4 +167,4 @@ function AddUserForm(props) {
     )
 }
 
-export default AddUserForm;
+export default UserForm;
