@@ -89,9 +89,10 @@ function UserForm(props) {
     }
 
     function createObject() {
+        const user = props.user || {};
         const result = fields.reduce((accu, el) => ({
             ...accu,
-            id: props.userId,
+            id: user.id,
             [el.name]: el.value
         }), {});
         return result;
