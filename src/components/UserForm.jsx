@@ -109,8 +109,6 @@ function UserForm(props) {
             setFields(filledForm);
         }
         const formObject = createObject();
-        // props.mode === UserFormMode.EDIT && props.onSubmit(formObject, props.mode);
-        // props.mode === UserFormMode.ADD && props.onSubmit(formObject, props.mode);
         props.onSubmit(formObject, props.mode);
         history.push("/users");
     }
