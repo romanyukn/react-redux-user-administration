@@ -97,15 +97,6 @@ function UserForm(props) {
         }), {});
         return result;
     }
-    createObject();
-
-    function sendToStore() {
-        const formObject = createObject();
-        dispatch({
-            type: "userAdded",
-            payload: formObject
-        })
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -118,8 +109,9 @@ function UserForm(props) {
             setFields(filledForm);
         }
         const formObject = createObject();
-        props.mode === UserFormMode.EDIT && props.onSubmit(formObject, UserFormMode.EDIT);
-        props.mode === UserFormMode.ADD && sendToStore();
+        // props.mode === UserFormMode.EDIT && props.onSubmit(formObject, props.mode);
+        // props.mode === UserFormMode.ADD && props.onSubmit(formObject, props.mode);
+        props.onSubmit(formObject, props.mode);
         history.push("/users");
     }
 

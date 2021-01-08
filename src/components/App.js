@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import UsersList from './UsersList';
 import ViewUserContainer from './ViewUserContainer';
-import UserForm from './UserForm';
 import NotFound from './NotFound';
-import {UserFormMode} from './UserForm';
+import AddUserContainer from "./AddUserContainer";
 
 class App extends Component {
     render() {
@@ -12,7 +11,7 @@ class App extends Component {
         <div>
           <div className="content">
             <Switch>
-              <Route path="/user/add" component={() => <UserForm mode={UserFormMode.ADD}/>} />
+              <Route path="/user/add" component={AddUserContainer} />
               <Route path="/users/:id" component={ViewUserContainer} />
               <Route path="/users" component={UsersList} />
               <Route path="/not-found" component={NotFound} />
