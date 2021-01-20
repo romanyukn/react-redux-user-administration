@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import UsersList from './UsersList';
-import UserItem from './UserItem';
-import AddUserForm from './AddUserForm';
+import ViewUserContainer from './ViewUserContainer';
 import NotFound from './NotFound';
+import AddUserContainer from "./AddUserContainer";
 
 class App extends Component {
     render() {
@@ -11,9 +11,9 @@ class App extends Component {
         <div>
           <div className="content">
             <Switch>
-              <Route path="/users/:id" component={UserItem} />
+              <Route path="/user/add" component={AddUserContainer} />
+              <Route path="/users/:id" component={ViewUserContainer} />
               <Route path="/users" component={UsersList} />
-              <Route path="/add-user" component={() => <AddUserForm mode="Add"/>} />
               <Route path="/not-found" component={NotFound} />
               <Route path="/" exact component={UsersList} />
               <Redirect to="/not-found" />
