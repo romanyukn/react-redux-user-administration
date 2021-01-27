@@ -1,15 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import UserListItem from './UserListItem';
 import DeleteConfirmation from './deleteConfirmation';
 
 function UsersList() {
-    const users = useSelector(state => state);
+    const users = useSelector(state => state.users);
     const history = useHistory();
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState();
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    async function loadData() {
+       await axios.get('http://localhost:3001/api/users/')
+            .then(response => {
+                dispatch({
+                    type: "AddAll",
+                    payload: response.data
+                });
+            })
+            .catch(() => {
+                console.log('ERROR');
+            });
+    }
 
     function goToAddUser() {
         history.push("/user/add");
@@ -59,8 +77,8 @@ function UsersList() {
                 <tbody>
                     {users.map((el) => {
                         return <UserListItem 
-                            key={el.id}
-                            id={el.id}
+                            key={el._id}
+                            id={el._id}
                             firstName={el.firstName}
                             lastName={el.lastName}
                             email={el.email}

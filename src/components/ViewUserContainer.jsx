@@ -6,8 +6,8 @@ import UserForm from './UserForm';
 
 function ViewUserContainer(props) {
     const [mode, setMode] = useState(UserFormMode.VIEW);
-    const userId = Number(props.match.params.id);
-    const user = useSelector(state => state.find(el => el.id === userId));
+    const userId = props.match.params.id;
+    const user = useSelector(state => state.users.find(el => el._id === userId));
     const history = useHistory();
     const dispatch = useDispatch();
     

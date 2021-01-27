@@ -5,7 +5,7 @@ function UserListItem(props) {
 
     return(
         <tr>
-            <th scope="row">{id}</th>
+            <th scope="row"></th>
             <td>{firstName}</td>
             <td>{lastName}</td>
             <td>{email}</td>

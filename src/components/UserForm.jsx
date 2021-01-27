@@ -92,7 +92,7 @@ function UserForm(props) {
         const user = props.user || {};
         const result = fields.reduce((accu, el) => ({
             ...accu,
-            id: user.id,
+            id: user._id,
             [el.name]: el.value
         }), {});
         return result;
